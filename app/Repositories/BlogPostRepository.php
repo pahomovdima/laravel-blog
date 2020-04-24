@@ -20,6 +20,16 @@ class BlogPostRepository extends CoreRepository {
     }
 
     /**
+     * Получить модель для редактирования в админке
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function getEdit ($id) {
+        return $this->startConditions()->find($id);
+    }
+
+    /**
      * Получить статьи для вывода пагинатором
      *
      * @param int|null $perPage
@@ -40,6 +50,12 @@ class BlogPostRepository extends CoreRepository {
         $result = $this->startConditions()
             ->select($columns)
             ->orderBy('id', 'DESC')
+            //->with(['category', 'user'])
+            ->with(['category' => function ($query) {
+                    $query->select(['id', 'title']);
+                },
+                'user:id,name'
+            ])
             ->paginate(25);
 
         return $result;
