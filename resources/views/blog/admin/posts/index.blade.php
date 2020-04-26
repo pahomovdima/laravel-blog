@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('blog.admin.posts.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar navbar-toggler navbar-light">
@@ -31,7 +32,9 @@
                                     <td>
                                         <a href="{{ route('blog.admin.posts.edit', $post->id) }}">{{ $post->title }}</a>
                                     </td>
-                                    <td>{{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d M Y H:i') : '' }}</td>
+                                    <td>
+                                        {{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d M Y H:i') : '' }}
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

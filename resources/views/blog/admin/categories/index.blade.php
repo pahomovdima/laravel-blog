@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('blog.admin.categories.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar navbar-toggler navbar-light">
@@ -28,7 +29,7 @@
                                         </a>
                                     </td>
                                     <td @if (in_array($item->parent_id, [0, 1])) style="color:#b3b7bb" @endif>
-                                        {{ $item->parent_id }}{{-- $item->parentCategory->title --}}
+                                         {{ $item->parentTitle }}
                                     </td>
                                 </tr>
                             @endforeach

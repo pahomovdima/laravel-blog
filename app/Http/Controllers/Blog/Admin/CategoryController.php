@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Models\BlogCategory;
-use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Http\Requests\BlogCategoryCreateRequest;
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Repositories\BlogCategoryRepository;
 
 /**
@@ -51,7 +51,7 @@ class CategoryController extends BaseController {
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\BlogCategoryCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -90,7 +90,7 @@ class CategoryController extends BaseController {
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     *  @param \App\Http\Requests\BlogCategoryUpdateRequest $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -114,6 +114,24 @@ class CategoryController extends BaseController {
             return back()
                 ->withErrors([ 'msg' => 'Ошибка сохранения' ])
                 ->withInput();
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy ($id) {
+        $result = BlogCategory::find($id)->forceDelete();
+
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.categories.index')
+                ->with([ 'success' => "Запись id=[{$id}] удалена" ]);
+        } else {
+            return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
 
