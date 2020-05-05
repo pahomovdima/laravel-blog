@@ -2,15 +2,14 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
-{
+class UsersTableSeeder extends Seeder {
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         $data = [
             [
                 'name' => 'Автор неизвестен',
@@ -20,7 +19,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Автор',
                 'email' => 'authorl@g.g',
-                'password' => bcrypt('123123')
+                'password' => bcrypt('66699911')
             ]
         ];
 

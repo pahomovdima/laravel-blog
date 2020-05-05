@@ -28,7 +28,8 @@ Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
 // Админка блога
 $groupData = [
     'namespace' => 'Blog\Admin',
-    'prefix' => 'admin/blog'
+    'prefix' => 'admin/blog',
+    'middleware' => 'auth'
 ];
 Route::group($groupData, function () {
     // BlogCategory
@@ -43,4 +44,20 @@ Route::group($groupData, function () {
         ->names('blog.admin.posts');
 });
 
-//Route::resource('rest', 'RestTestController')->names('restTest');
+// Пользователи в админке
+$groupData = [
+    'namespace' => 'User\Admin',
+    'prefix' => 'admin/user',
+    'middleware' => 'auth'
+];
+Route::group($groupData, function () {
+    // User
+    Route::resource('users', 'UserController')
+        ->except(['show'])
+        ->names('admin.users');
+
+    // UserGroup
+    Route::resource('user_groups', 'UserGroupController')
+        ->except(['show'])
+        ->names('admin.user_groups');
+});
