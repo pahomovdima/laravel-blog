@@ -25,7 +25,19 @@ Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
 });
 
 
-// Админка блога
+/**
+ * Админка сайта
+ */
+$groupData = [
+    'namespace' => 'Admin',
+    'prefix' => 'admin',
+    'middleware' => 'auth'
+];
+Route::group($groupData, function () {
+    Route::get('/', 'AdminController@index')->name('admin_index');
+});
+
+// Блог
 $groupData = [
     'namespace' => 'Blog\Admin',
     'prefix' => 'admin/blog',
@@ -44,7 +56,7 @@ Route::group($groupData, function () {
         ->names('blog.admin.posts');
 });
 
-// Пользователи в админке
+// Пользователи
 $groupData = [
     'namespace' => 'User\Admin',
     'prefix' => 'admin/user',
