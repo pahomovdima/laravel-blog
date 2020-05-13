@@ -59,7 +59,7 @@ class UserGroupRepository extends CoreRepository {
      */
     public function getForComboBox () {
         $columns = implode(', ', [
-            'id', 'name'
+            'id', 'name', 'description'
         ]);
 
         $result[] = $this

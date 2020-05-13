@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
 $groupData = [
     'namespace' => 'Admin',
     'prefix' => 'admin',
-    'middleware' => 'auth'
+    'middleware' => 'article_editor'
 ];
 Route::group($groupData, function () {
     Route::get('/', 'AdminController@index')->name('admin_index');
@@ -39,9 +39,9 @@ Route::group($groupData, function () {
 
 // Блог
 $groupData = [
-    'namespace' => 'Blog\Admin',
+    'namespace' => '\App\Http\Controllers\Blog\Admin',
     'prefix' => 'admin/blog',
-    'middleware' => 'auth'
+    'middleware' => 'article_editor'
 ];
 Route::group($groupData, function () {
     // BlogCategory
@@ -58,9 +58,9 @@ Route::group($groupData, function () {
 
 // Пользователи
 $groupData = [
-    'namespace' => 'User\Admin',
+    'namespace' => '\App\Http\Controllers\User\Admin',
     'prefix' => 'admin/user',
-    'middleware' => 'auth'
+    'middleware' => 'admin'
 ];
 Route::group($groupData, function () {
     // User

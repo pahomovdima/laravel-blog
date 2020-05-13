@@ -24,6 +24,13 @@
                                    minlength="3"
                                    required>
                         </div>
+                        <div class="form-group">
+                            <label for="description">Описание</label>
+                            <textarea name="description" value="{{ $item->description }}"
+                                      id="description"
+                                      class="form-control"
+                                      rows="7">{{ old('description', $item->description) }}</textarea>
+                        </div>
                     </div>
                 </div>
             </div>

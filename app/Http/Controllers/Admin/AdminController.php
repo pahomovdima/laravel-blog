@@ -33,11 +33,11 @@ class AdminController extends BaseController {
                 'url' => 'user',
                 'childs' => [
                     [
-                        'name' => 'Управление пользователями',
+                        'name' => 'Пользователи',
                         'url' => '/admin/user/users'
                     ],
                     [
-                        'name' => 'Управление группами пользователей',
+                        'name' => 'Группы пользователей',
                         'url' => '/admin/user/user_groups'
                     ]
                 ]

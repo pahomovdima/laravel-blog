@@ -35,4 +35,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group() {
+        return $this->belongsTo(UserGroup::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin() {
+        return $this->group->id == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isArticleEditor() {
+        return $this->group->id == 2;
+    }
 }
