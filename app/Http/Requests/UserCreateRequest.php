@@ -24,6 +24,7 @@ class UserCreateRequest extends FormRequest {
         return [
             'name' => 'required|min:5|max:200',
             'email' => 'required|email',
+            'password' => 'required|string|min:8|confirmed',
             'group_id' => 'required|integer|exists:user_groups,id'
         ];
     }

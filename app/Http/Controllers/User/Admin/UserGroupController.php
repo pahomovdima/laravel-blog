@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\User\Admin;
 
+use App\Http\Requests\UserGroupCreateRequest;
+use App\Http\Requests\UserGroupUpdateRequest;
 use App\Models\UserGroup;
 use App\Repositories\UserGroupRepository;
-use Illuminate\Http\Request;
 
 class UserGroupController extends BaseController {
 
@@ -39,17 +40,29 @@ class UserGroupController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        dd(__METHOD__);
+        $item = new UserGroup();
+        $userGroupList = $this->userGroupRepository->getForComboBox();
+
+        return view('user.admin.user_groups.edit', compact('item', 'userGroupList'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UserGroupCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        dd(__METHOD__);
+    public function store(UserGroupCreateRequest $request) {
+        $data = $request->input();
+        $item = (new UserGroup())->create($data);
+
+        if ($item) {
+            return redirect()->route('admin.user_groups.edit', [$item->id])
+                ->with(['success' => 'Успешно сохранен']);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**
@@ -73,12 +86,31 @@ class UserGroupController extends BaseController {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Http\Requests\UserGroupUpdateRequest  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserGroup $userGroup) {
-        dd(__METHOD__);
+    public function update(UserGroupUpdateRequest $request, $id) {
+        $item = $this->userGroupRepository->getEdit($id);
+
+        if (empty($item)) {
+            return back()
+                ->withErrors([ 'msg' => "Запись id=[{$id}] не найдена" ])
+                ->withInput();
+        }
+
+        $data = $request->all();
+        $result = $item->update($data);
+
+        if ($result) {
+            return redirect()
+                ->route('admin.user_groups.edit', $item->id)
+                ->with([ 'success' => 'Успешно сохранено' ]);
+        } else {
+            return back()
+                ->withErrors([ 'msg' => 'Ошибка сохранения' ])
+                ->withInput();
+        }
     }
 
     /**
@@ -87,7 +119,15 @@ class UserGroupController extends BaseController {
      * @param  \App\Models\UserGroup  $userGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserGroup $userGroup) {
-        dd(__METHOD__);
+    public function destroy($id) {
+        $result = UserGroup::destroy($id);
+
+        if ($result) {
+            return redirect()
+                ->route('admin.user_groups.index')
+                ->with([ 'success' => "Запись id=[{$id}] удалена" ]);
+        } else {
+            return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
+        }
     }
 }

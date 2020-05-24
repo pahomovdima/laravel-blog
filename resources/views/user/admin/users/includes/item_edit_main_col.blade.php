@@ -34,6 +34,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input name="password"
+                                   id="password"
+                                   type="password"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation">Подтверждение пароля</label>
+                            <input name="password_confirmation"
+                                   id="password_confirmation"
+                                   type="password"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
                             <label for="parent_id">Группа</label>
                             <select name="group_id" value="{{ old('group_id', $item->group_id) }}"
                                    id="group_id"

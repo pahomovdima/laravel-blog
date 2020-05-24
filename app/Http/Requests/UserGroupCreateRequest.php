@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest {
+class UserGroupCreateRequest extends FormRequest {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,7 @@ class UserUpdateRequest extends FormRequest {
     public function rules () {
         return [
             'name' => 'required|min:5|max:200',
-            'email' => 'required|email',
-            'password' => 'required|string|min:8|confirmed',
-            'group_id' => 'required|integer|exists:user_groups,id'
+            'description' => 'required|min:5|max:200',
         ];
     }
 

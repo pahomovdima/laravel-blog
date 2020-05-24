@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserGroupRepository;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends BaseController {
 
@@ -61,7 +62,11 @@ class UserController extends BaseController {
      */
     public function store (UserCreateRequest $request) {
         $data = $request->input();
-        $item = (new User())->create($data);
+        $item = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
         if ($item) {
             return redirect()->route('admin.users.edit', [$item->id])
@@ -107,6 +112,7 @@ class UserController extends BaseController {
         }
 
         $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
         $result = $item->update($data);
 
         if ($result) {
