@@ -33,21 +33,18 @@
                                    class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <label for="parent_id">Родитель</label>
-                            <select name="parent_id" value="{{ old('parent_id', $item->parent_id) }}"
-                                   id="parent_id"
-                                   class="form-control"
-                                   placeholder="Выберите категорию"
-                                   required>
-                                @foreach ($categoryList[0] as $categoryOption)
-                                    <option value="{{ $categoryOption->id }}"
-                                            @if ($categoryOption->id == $item->parent_id) selected @endif>
-                                        {{ $categoryOption->id_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @if (!$item->isRoot())
+                            <div class="form-group">
+                                <label for="parent_id">Родитель</label>
+                                <select name="parent_id" value="{{ old('parent_id', $item->parent_id) }}"
+                                       id="parent_id"
+                                       class="form-control"
+                                       placeholder="Выберите категорию"
+                                       required>
+                                    @include('blog.admin.categories.includes._categories')
+                                </select>
+                            </div>
+                        @endif
 
                         <div class="form-group">
                             <label for="description">Описание</label>

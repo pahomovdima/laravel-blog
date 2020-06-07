@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card card-block">
                 <div class="card-body ml-auto">
-                    <button type="submit" class="btn btn-link">Удалить</button>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
                 </div>
             </div>
         </div>

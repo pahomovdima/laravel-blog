@@ -86,8 +86,9 @@ class PostController extends BaseController {
         }
 
         $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $delimiter = '';
 
-        return view('blog.admin.posts.edit', compact('item', 'categoryList'));
+        return view('blog.admin.posts.edit', compact('item', 'categoryList', 'delimiter'));
     }
 
     /**

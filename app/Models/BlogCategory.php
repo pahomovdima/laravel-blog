@@ -29,7 +29,16 @@ class BlogCategory extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parentCategory () {
-        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
+    /**
+     * Получить дочернюю категорию
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children () {
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**

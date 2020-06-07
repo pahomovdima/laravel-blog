@@ -1,7 +1,6 @@
 #sidebar {
     min-width: 300px;
     max-width: 300px;
-    /*background: #1d1919;*/
     color: #fff;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -42,7 +41,6 @@
 #sidebar ul li a {
     padding: 10px 0;
     display: block;
-    /*color: rgba(255, 255, 255, 0.8);*/
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -73,4 +71,10 @@ a[data-toggle="collapse"] {
     #sidebarCollapse span {
         display: none;
     }
+}
+
+.admin_actions {
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
 }

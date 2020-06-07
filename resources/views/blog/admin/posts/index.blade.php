@@ -5,8 +5,9 @@
         @include('blog.admin.posts.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <nav class="navbar navbar-toggler navbar-light">
-                    <a class="btn btn-primary" href="{{ route('blog.admin.posts.create') }}">Написать</a>
+                <nav class="navbar-toggler">
+                    <a class="btn btn-primary" href="{{ route('blog.admin.posts.create') }}">Добавить</a>
+                    <a class="btn btn-secondary" href="{{ route('blog.admin.categories.index') }}">Категории</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -14,26 +15,29 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Автор</th>
-                                    <th>Категория</th>
                                     <th>Заголовок</th>
+                                    <th>Автор</th>
                                     <th>Дата публикации</th>
+                                    <th>Действие</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paginator as $post)
+                            @foreach ($paginator as $item)
                                 @php
                                     /** @var \App\Models\BlogPost $post */
                                 @endphp
-                                <tr @if (!$post->is_published) style="background-color: #ccc" @endif>
-                                    <td>{{ $post->id }}</td>
-                                    <td>{{ $post->user->name }}</td>
-                                    <td>{{ $post->category->title }}</td>
+                                <tr @if (!$item->is_published) style="background-color: #ccc" @endif>
+                                    <td>{{ $item->id }}</td>
                                     <td>
-                                        <a href="{{ route('blog.admin.posts.edit', $post->id) }}">{{ $post->title }}</a>
+                                        {{ $item->title }}
                                     </td>
+                                    <td>{{ $item->user->name }}</td>
                                     <td>
-                                        {{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->format('d M Y H:i') : '' }}
+                                        {{ $item->published_at ? \Carbon\Carbon::parse($item->published_at)->format('d M Y H:i') : '' }}
+                                    </td>
+                                    <td class="admin_actions">
+                                        <a class="btn btn-primary" href="{{ route('blog.admin.posts.edit', $item->id) }}">Редактировать</a>
+                                        @include('blog.admin.posts.includes._delete')
                                     </td>
                                 </tr>
                             @endforeach

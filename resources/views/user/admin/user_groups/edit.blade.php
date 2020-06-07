@@ -3,6 +3,10 @@
 @section('content')
     @php /** \App\Models\BlogCategory $item */ @endphp
     <div class="container">
+        <nav class="navbar-toggler">
+            <a class="btn btn btn-secondary" href="{{ route('admin.user_groups.index') }}">Назад</a>
+        </nav>
+
         @include('user.admin.user_groups.includes.result_messages')
 
         @if ($item->exists)

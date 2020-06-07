@@ -5,8 +5,9 @@
         @include('user.admin.users.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <nav class="navbar navbar-toggler navbar-light">
-                    <a class="btn btn-primary" href="{{ route('admin.users.create') }}">Создать пользователя</a>
+                <nav class="navbar-toggler">
+                    <a class="btn btn-primary" href="{{ route('admin.users.create') }}">Добавить</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.user_groups.index') }}">Группы</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">

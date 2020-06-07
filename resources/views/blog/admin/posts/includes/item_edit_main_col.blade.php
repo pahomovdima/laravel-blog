@@ -48,17 +48,12 @@
                     <div class="tab-pane" id="adddata" role="tabpanel">
                         <div class="form-group">
                             <label for="category_id">Категория</label>
-                            <select name="category_id" value="{{ $item->parent_id }}"
+                            <select name="category_id" value="{{ old('parent_id', $item->parent_id) }}"
                                     id="category_id"
                                     class="form-control"
                                     placeholder="Выберите категорию"
                                     required>
-                                @foreach ($categoryList[0] as $categoryOption)
-                                    <option value="{{ $categoryOption->id }}"
-                                            @if ($categoryOption->id == $item->category_id) selected @endif>
-                                        {{ $categoryOption->id_title }}
-                                    </option>
-                                @endforeach
+                                @include('blog.admin.posts.includes._categories')
                             </select>
                         </div>
                         <div class="form-group">

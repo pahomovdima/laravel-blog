@@ -32,8 +32,9 @@ class CategoryController extends BaseController {
      */
     public function index () {
         $paginator = $this->blogCategoryRepository->getAllWithPaginate(15);
+        $delimiter = '';
 
-        return view('blog.admin.categories.index', compact('paginator'));
+        return view('blog.admin.categories.index', compact('paginator', 'delimiter'));
     }
 
     /**
@@ -44,8 +45,9 @@ class CategoryController extends BaseController {
     public function create () {
         $item = new BlogCategory();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $delimiter = '';
 
-        return view('blog.admin.categories.edit', compact('item', 'categoryList'));
+        return view('blog.admin.categories.edit', compact('item', 'categoryList', 'delimiter'));
     }
 
     /**
@@ -83,8 +85,9 @@ class CategoryController extends BaseController {
         }
 
         $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $delimiter = '';
 
-        return view('blog.admin.categories.edit', compact('item', 'categoryList'));
+        return view('blog.admin.categories.edit', compact('item', 'categoryList', 'delimiter'));
     }
 
     /**
