@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User\Admin;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Repositories\UserGroupRepository;
+use App\Repositories\RoleRepository;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
 use Illuminate\Support\Facades\Hash;
@@ -17,9 +17,19 @@ class UserController extends BaseController {
     private $userRepository;
 
     /**
-     * @var UserGroupRepository
+     * @var RoleRepository
      */
-    private $userGroupRepository;
+    private $roleRepository;
+
+    /**
+     * @var array
+     */
+    private $validRulesWithPassword = [
+        'name' => 'required|min:5|max:200',
+        'email' => 'required|email',
+        'password' => 'required|string|min:8|confirmed',
+        'role_id' => 'required|integer|exists:roles,id'
+    ];
 
     /**
      * UserController constructor.
@@ -28,7 +38,7 @@ class UserController extends BaseController {
         parent::__construct();
 
         $this->userRepository = app(UserRepository::class);
-        $this->userGroupRepository = app(UserGroupRepository::class);
+        $this->roleRepository = app(RoleRepository::class);
     }
 
     /**
@@ -49,9 +59,9 @@ class UserController extends BaseController {
      */
     public function create () {
         $item = new User();
-        $userGroupList = $this->userGroupRepository->getForComboBox();
+        $roleList = $this->roleRepository->getForComboBox();
 
-        return view('user.admin.users.edit', compact('item', 'userGroupList'));
+        return view('user.admin.users.edit', compact('item', 'roleList'));
     }
 
     /**
@@ -62,6 +72,7 @@ class UserController extends BaseController {
      */
     public function store (UserCreateRequest $request) {
         $data = $request->input();
+
         $item = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -90,17 +101,16 @@ class UserController extends BaseController {
             abort(404);
         }
 
-        $userGroupList = $this->userGroupRepository->getForComboBox();
+        $roleList = $this->roleRepository->getForComboBox();
 
-        return view('user.admin.users.edit', compact('item', 'userGroupList'));
+        return view('user.admin.users.edit', compact('item', 'roleList'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\UserUpdateRequest $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UserUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update (UserUpdateRequest $request, $id) {
         $item = $this->userRepository->getEdit($id);
@@ -112,7 +122,13 @@ class UserController extends BaseController {
         }
 
         $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
+        if ($data['password']) {
+            $this->validate($request, $this->validRulesWithPassword);
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            $data['password'] = $item->password;
+        }
+
         $result = $item->update($data);
 
         if ($result) {

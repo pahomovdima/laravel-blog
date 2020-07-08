@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\User\Admin;
 
-use App\Http\Requests\UserGroupCreateRequest;
-use App\Http\Requests\UserGroupUpdateRequest;
-use App\Models\UserGroup;
-use App\Repositories\UserGroupRepository;
+use App\Http\Requests\RoleCreateRequest;
+use App\Http\Requests\RoleUpdateRequest;
+use App\Models\Role;
+use App\Repositories\RoleRepository;
 
-class UserGroupController extends BaseController {
+class RoleController extends BaseController {
 
     /**
-     * @var UserGroupRepository
+     * @var RoleRepository
      */
-    private $userGroupRepository;
+    private $roleRepository;
 
     /**
-     * UserGroupController constructor.
+     * RoleController constructor.
      */
     public function __construct () {
         parent::__construct();
 
-        $this->userGroupRepository = app(UserGroupRepository::class);
+        $this->roleRepository = app(RoleRepository::class);
     }
 
     /**
@@ -29,9 +29,9 @@ class UserGroupController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $paginator = $this->userGroupRepository->getAllWithPaginate();
+        $paginator = $this->roleRepository->getAllWithPaginate();
 
-        return view('user.admin.user_groups.index', compact('paginator'));
+        return view('user.admin.roles.index', compact('paginator'));
     }
 
     /**
@@ -40,24 +40,24 @@ class UserGroupController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $item = new UserGroup();
-        $userGroupList = $this->userGroupRepository->getForComboBox();
+        $item = new Role();
+        $roleList = $this->roleRepository->getForComboBox();
 
-        return view('user.admin.user_groups.edit', compact('item', 'userGroupList'));
+        return view('user.admin.roles.edit', compact('item', 'roleList'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\UserGroupCreateRequest  $request
+     * @param  \App\Http\Requests\RoleCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserGroupCreateRequest $request) {
+    public function store(RoleCreateRequest $request) {
         $data = $request->input();
-        $item = (new UserGroup())->create($data);
+        $item = (new Role())->create($data);
 
         if ($item) {
-            return redirect()->route('admin.user_groups.edit', [$item->id])
+            return redirect()->route('admin.roles.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранен']);
         } else {
             return back()->withErrors(['msg' => 'Ошибка сохранения'])
@@ -68,30 +68,30 @@ class UserGroupController extends BaseController {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $item = $this->userGroupRepository->getEdit($id);
+        $item = $this->roleRepository->getEdit($id);
 
         if (!$item) {
             abort(404);
         }
 
-        $userGroupList = $this->userGroupRepository->getForComboBox();
+        $roleList = $this->roleRepository->getForComboBox();
 
-        return view('user.admin.user_groups.edit', compact('item', 'userGroupList'));
+        return view('user.admin.roles.edit', compact('item', 'roleList'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UserGroupUpdateRequest  $request
+     * @param  \App\Http\Requests\RoleUpdateRequest  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserGroupUpdateRequest $request, $id) {
-        $item = $this->userGroupRepository->getEdit($id);
+    public function update(RoleUpdateRequest $request, $id) {
+        $item = $this->roleRepository->getEdit($id);
 
         if (empty($item)) {
             return back()
@@ -104,7 +104,7 @@ class UserGroupController extends BaseController {
 
         if ($result) {
             return redirect()
-                ->route('admin.user_groups.edit', $item->id)
+                ->route('admin.roles.edit', $item->id)
                 ->with([ 'success' => 'Успешно сохранено' ]);
         } else {
             return back()
@@ -116,18 +116,19 @@ class UserGroupController extends BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        $result = UserGroup::destroy($id);
+    public function destroy ($id) {
+        $result = Role::destroy($id);
 
         if ($result) {
             return redirect()
-                ->route('admin.user_groups.index')
+                ->route('admin.roles.index')
                 ->with([ 'success' => "Запись id=[{$id}] удалена" ]);
         } else {
             return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
+
 }

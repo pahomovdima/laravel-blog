@@ -12,14 +12,16 @@ class UsersTableSeeder extends Seeder {
     public function run() {
         $data = [
             [
-                'name' => 'Автор неизвестен',
-                'email' => 'author_unknow@g.g',
-                'password' => bcrypt(Str::random(16))
-            ],
-            [
                 'name' => 'Автор',
                 'email' => 'authorl@g.g',
-                'password' => bcrypt('66699911')
+                'password' => bcrypt('66699911'),
+                'role_id' => 2
+            ],
+            [
+                'name' => 'Admin',
+                'email' => 'admin@admin.admin',
+                'password' => bcrypt('66699911'),
+                'role_id' => 1
             ]
         ];
 

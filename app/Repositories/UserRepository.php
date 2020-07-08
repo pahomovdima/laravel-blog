@@ -41,7 +41,7 @@ class UserRepository extends CoreRepository {
             'id',
             'name',
             'email',
-            'group_id',
+            'role_id',
             'created_at'
         ];
 

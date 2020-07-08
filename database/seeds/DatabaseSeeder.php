@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \App\Models\BlogPost;
+use \App\Models\Comment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -9,11 +11,11 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        $this->call(UserGroupsTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(BlogCategoriesTableSeeder::class);
-        factory(\App\Models\BlogPost::class, 100)->create();
+    public function run() {
+//        $this->call(RolesTableSeeder::class);
+//        $this->call(UsersTableSeeder::class);
+//        $this->call(BlogCategoriesTableSeeder::class);
+//        factory(BlogPost::class, 100)->create();
+        factory(Comment::class, 25)->create();
     }
 }

@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        @include('user.admin.users.includes.result_messages')
+        @include('user.admin.roles.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar-toggler">
-                    <a class="btn btn-primary" href="{{ route('admin.users.create') }}">Добавить</a>
-                    <a class="btn btn-secondary" href="{{ route('admin.roles.index') }}">Группы</a>
+                    <a class="btn btn-primary" href="{{ route('admin.roles.create') }}">Добавить</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.users.index') }}">Пользователи</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -15,26 +15,22 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Группа</th>
-                                    <th>Email</th>
                                     <th>Имя</th>
                                     <th>Дата создания</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paginator as $user)
+                            @foreach ($paginator as $userGroup)
                                 @php
                                     /** @var \App\Models\BlogPost $post */
                                 @endphp
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->role_id }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $userGroup->id }}</td>
                                     <td>
-                                        <a href="{{ route('admin.users.edit', $user->id) }}">{{ $user->name }}</a>
+                                        <a href="{{ route('admin.roles.edit', $userGroup->id) }}">{{ $userGroup->name }}</a>
                                     </td>
                                     <td>
-                                        {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d M Y H:i') : '' }}
+                                        {{ $userGroup->created_at ? \Carbon\Carbon::parse($userGroup->created_at)->format('d M Y H:i') : '' }}
                                     </td>
                                 </tr>
                             @endforeach

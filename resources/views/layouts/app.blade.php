@@ -75,6 +75,24 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="footer-area section-gap">
+            <div class="container">
+                <div class="footer-bottom row align-items-center text-center text-lg-left">
+                    <p class="footer-text m-0 col-lg-8 col-md-12">
+                        Copyright &copy;2020
+                        All rights reserved | This template is made with
+                        <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <div class="col-lg-4 col-md-12 text-center text-lg-right footer-social">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-dribbble"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

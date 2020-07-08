@@ -30,13 +30,47 @@ class BlogPostRepository extends CoreRepository {
     }
 
     /**
+     * Получить модель для публичной части
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function getShow ($slug) {
+        $columns = [
+            'id',
+            'title',
+            'slug',
+            'content_html',
+            'is_published',
+            'published_at',
+            'user_id',
+            'category_id'
+        ];
+
+        return $this->startConditions()
+            ->select($columns)
+            ->where('slug', $slug)
+//            ->where('is_published', 1)
+            ->first();
+    }
+
+    /**
+     * Получить slug по id поста
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function getSlugById ($id) {
+        return $this->startConditions()->find($id)->slug;
+    }
+
+    /**
      * Получить статьи для вывода пагинатором
      *
-     * @param int|null $perPage
-     *
-     * @return LengthAwarePaginator
+     * @param int $nPage
+     * @return mixed
      */
-    public function getAllWithPaginate () {
+    public function getAllWithPaginate ($nPage = 25) {
         $columns = [
             'id',
             'title',
@@ -56,7 +90,34 @@ class BlogPostRepository extends CoreRepository {
                 },
                 'user:id,name'
             ])
-            ->paginate(25);
+            ->paginate($nPage);
+
+        return $result;
+    }
+
+    /**
+     * Получить статьи для вывода пагинатором
+     *
+     * @param int $nPage
+     * @return mixed
+     */
+    public function getAllInRootCategory ($nPage = 10) {
+        $columns = [
+            'id',
+            'title',
+            'slug',
+            'is_published',
+            'published_at',
+            'user_id',
+            'category_id'
+        ];
+
+        $result = $this->startConditions()
+            ->select($columns)
+            ->orderBy('id', 'DESC')
+            ->where('category_id', 1)
+            ->where('is_published', 1)
+            ->paginate($nPage);
 
         return $result;
     }

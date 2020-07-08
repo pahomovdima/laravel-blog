@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\UserGroup as Model;
+use App\Models\Role as Model;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package App\Repositories
  */
-class UserGroupRepository extends CoreRepository {
+class RoleRepository extends CoreRepository {
 
     /**
      * @return string
@@ -53,7 +53,7 @@ class UserGroupRepository extends CoreRepository {
     }
 
     /**
-     * Получить список груп пользователей для вывода в выпадающем списке
+     * Получить список ролей для вывода в выпадающем списке
      *
      * @return Collection
      */

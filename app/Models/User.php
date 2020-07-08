@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'group_id'
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -39,21 +39,21 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group() {
-        return $this->belongsTo(UserGroup::class);
+    public function role () {
+        return $this->belongsTo(Role::class);
     }
 
     /**
      * @return bool
      */
-    public function isAdmin() {
-        return $this->group->id == 1;
+    public function isAdmin () {
+        return $this->role->id == 1;
     }
 
     /**
      * @return bool
      */
-    public function isArticleEditor() {
-        return $this->group->id == 2;
+    public function isArticleEditor () {
+        return $this->role->id == 2;
     }
 }

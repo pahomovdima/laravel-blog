@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
+use \App\Models\BlogPost;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(\App\Models\BlogPost::class, function (Faker $faker) {
+$factory->define(BlogPost::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true);
     $txt = $faker->realText(rand(1000, 4000));
     $isPublished = rand(1, 5) > 1;

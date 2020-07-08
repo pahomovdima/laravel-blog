@@ -1,5 +1,5 @@
 <br>
-<form method="post" action="{{ route('admin.user_groups.destroy', $item->id) }}">
+<form method="post" action="{{ route('admin.roles.destroy', $item->id) }}">
     @method('DELETE')
     @csrf
     <div class="row justify-content">

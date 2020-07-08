@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/test', 'TestController@index')->name('test');
 
 Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
-    Route::resource('posts', 'PostController')->names('blog.posts');
+    Route::get('/', 'PostController@index')->name('blog.posts.index');
+    Route::get('/{slug}', 'PostController@show')->name('blog.posts.show');
+
+    Route::post('/', 'CommentController@send')->name('blog.comments.send');
 });
 
 
@@ -54,6 +54,11 @@ Route::group($groupData, function () {
     Route::resource('posts', 'PostController')
         ->except(['show'])
         ->names('blog.admin.posts');
+
+    // Comments
+    Route::resource('comments', 'CommentController')
+        ->except(['show', 'create', 'store'])
+        ->names('blog.admin.comments');
 });
 
 // Пользователи
@@ -68,8 +73,8 @@ Route::group($groupData, function () {
         ->except(['show'])
         ->names('admin.users');
 
-    // UserGroup
-    Route::resource('user_groups', 'UserGroupController')
+    // Role
+    Route::resource('roles', 'RoleController')
         ->except(['show'])
-        ->names('admin.user_groups');
+        ->names('admin.roles');
 });

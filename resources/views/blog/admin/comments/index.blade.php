@@ -2,12 +2,11 @@
 
 @section('content')
     <div class="container">
-        @include('user.admin.users.includes.result_messages')
+        @include('blog.admin.comments.includes.result_messages')
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar-toggler">
-                    <a class="btn btn-primary" href="{{ route('admin.user_groups.create') }}">Добавить</a>
-                    <a class="btn btn-secondary" href="{{ route('admin.users.index') }}">Пользователи</a>
+                    <a class="btn btn-secondary" href="{{ route('blog.admin.posts.index') }}">Записи</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -15,22 +14,33 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Имя</th>
-                                    <th>Дата создания</th>
+                                    <th>post_id</th>
+                                    <th>Имя автора</th>
+                                    <th>Email</th>
+                                    <th>Дата публикации</th>
+                                    <th>Действие</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paginator as $userGroup)
+                            @foreach ($paginator as $item)
                                 @php
                                     /** @var \App\Models\BlogPost $post */
                                 @endphp
-                                <tr>
-                                    <td>{{ $userGroup->id }}</td>
+                                <tr @if (!$item->is_published) style="background-color: #ccc" @endif>
+                                    <td>{{ $item->id }}</td>
                                     <td>
-                                        <a href="{{ route('admin.user_groups.edit', $userGroup->id) }}">{{ $userGroup->name }}</a>
+                                        <a href="{{ route('blog.admin.posts.edit', $item->post->id) }}">
+                                            {{ $item->post_id }}
+                                        </a>
                                     </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
                                     <td>
-                                        {{ $userGroup->created_at ? \Carbon\Carbon::parse($userGroup->created_at)->format('d M Y H:i') : '' }}
+                                        {{ $item->published_at ? \Carbon\Carbon::parse($item->published_at)->format('d M Y H:i') : '' }}
+                                    </td>
+                                    <td class="admin_actions">
+                                        <a class="btn btn-primary" href="{{ route('blog.admin.comments.edit', $item->id) }}">Редактировать</a>
+                                        @include('blog.admin.comments.includes._delete')
                                     </td>
                                 </tr>
                             @endforeach

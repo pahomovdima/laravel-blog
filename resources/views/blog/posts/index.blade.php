@@ -1,13 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<table>
-    @foreach($items as $item)
-        <tr>
-            <td>{{ $item->id }}</td>
-            <td>{{ $item->title }}</td>
-            <td>{{ $item->created_at }}</td>
-        </tr>
-    @endforeach
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @foreach ($paginator as $post)
+                    <div class="post-preview">
+                        <a href="{{ route('blog.posts.show', $post->slug) }}">
+                            <h2 class="post-title">
+                                {{ $post->title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ $post->slug }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted by
+                            <a href="#">Start Bootstrap</a>
+                            on {{ $post->published_at }}
+                        </p>
+                    </div>
+                    <hr>
+                @endforeach
+                @if ($paginator->total() > $paginator->count())
+                    <div class="row col-md-12">
+                        {{ $paginator->links() }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
 @endsection

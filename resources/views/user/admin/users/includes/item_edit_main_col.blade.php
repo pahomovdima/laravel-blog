@@ -50,16 +50,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="parent_id">Группа</label>
-                            <select name="group_id" value="{{ old('group_id', $item->group_id) }}"
-                                   id="group_id"
+                            <label for="parent_id">Роль</label>
+                            <select name="role_id" value="{{ old('role_id', $item->role_id) }}"
+                                   id="role_id"
                                    class="form-control"
                                    placeholder="Выберите группу"
                                    required>
-                                @foreach ($userGroupList[0] as $userGroupOption)
-                                    <option value="{{ $userGroupOption->id }}"
-                                            @if ($userGroupOption->id == $item->group_id) selected @endif>
-                                        {{ $userGroupOption->name }}
+                                @foreach ($roleList[0] as $roleOption)
+                                    <option value="{{ $roleOption->id }}"
+                                            @if ($roleOption->id == $item->role_id) selected @endif>
+                                        {{ $roleOption->name }}
                                     </option>
                                 @endforeach
                             </select>
