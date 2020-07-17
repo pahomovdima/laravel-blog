@@ -1,1 +1,1 @@
-<test></test>
+<test :csrf="{{ csrf_token() }}"></test>

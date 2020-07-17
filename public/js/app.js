@@ -1938,11 +1938,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'test',
+  props: ['csrf'],
+  data: function data() {
+    return {
+      fields: {}
+    };
+  },
+
+  /*mounted() {
+      axios.get('/api/user').then(res => {
+          console.log(res);
+      }).catch(error => {
+          console.log(error);
+      })
+  },*/
   methods: {
     sendComment: function sendComment() {
-      console.log(1);
+      var _this = this;
+
+      axios.post('/api/comment', this.fields).then(function (response) {
+        _this.fields = {};
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -37322,25 +37344,77 @@ var render = function() {
   return _c("div", { staticClass: "comment-form" }, [
     _c("h4", [_vm._v("Оставьте комментарий")]),
     _vm._v(" "),
-    _c("form", { staticClass: "form-contact comment_form" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c(
-          "button",
-          {
-            staticClass: "button button-contactForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.sendComment($event)
-              }
+    _c(
+      "form",
+      {
+        staticClass: "form-contact comment_form",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.sendComment($event)
+          }
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.fields._token,
+              expression: "fields._token"
             }
-          },
-          [_vm._v("\n                Отправить комментарий\n            ")]
-        )
-      ])
-    ])
+          ],
+          attrs: { type: "hidden", name: "_token", value: "csrf" },
+          domProps: { value: _vm.fields._token },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.fields, "_token", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.comment,
+                    expression: "fields.comment"
+                  }
+                ],
+                staticClass: "form-control w-100",
+                attrs: {
+                  name: "comment",
+                  cols: "30",
+                  rows: "9",
+                  placeholder: "Текст комментария"
+                },
+                domProps: { value: _vm.fields.comment },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "comment", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -37348,28 +37422,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("p", { staticClass: "margin-bottom" }, [
-          _vm._v(
-            "\n                    Ваш адрес email не будет опубликован. Обязательные поля помечены *\n                "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("textarea", {
-            staticClass: "form-control w-100",
-            attrs: {
-              name: "comment",
-              cols: "30",
-              rows: "9",
-              placeholder: "Текст комментария"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "col-12" }, [
+      _c("p", { staticClass: "margin-bottom" }, [
+        _vm._v(
+          "\n                    Ваш адрес email не будет опубликован. Обязательные поля помечены *\n                "
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "button button-contactForm", attrs: { type: "submit" } },
+        [_vm._v("\n                Отправить комментарий\n            ")]
+      )
     ])
   }
 ]

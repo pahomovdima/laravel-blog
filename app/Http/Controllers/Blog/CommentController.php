@@ -42,6 +42,7 @@ class CommentController extends Controller {
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -61,6 +62,8 @@ class CommentController extends Controller {
 
         $data['is_published'] = 0;
         $item = (new Comment())->create($data);
+
+        return $item;
 
         if ($item) {
             $postSlug = $this->blogPostRepository->getSlugById($data['post_id']);
