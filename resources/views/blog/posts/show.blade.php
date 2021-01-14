@@ -13,7 +13,7 @@
                     @include('blog.posts.comments.comments')
                 @endif
 
-                @include('blog.posts.comments.comment_form')
+                @include('blog.posts.comments.comment_form__')
             </div>
         </div>
     </div>
