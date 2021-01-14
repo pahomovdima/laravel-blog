@@ -7,8 +7,8 @@ use App\Repositories\BlogCommentRepository;
 use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
-class PostController extends Controller {
-
+class PostController extends Controller
+{
     /**
      * @var BlogPostRepository
      */
@@ -24,7 +24,8 @@ class PostController extends Controller {
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->blogPostRepository = app(blogPostRepository::class);
         $this->blogCommentRepository = app(blogCommentRepository::class);
     }
@@ -33,7 +34,8 @@ class PostController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index () {
+    public function index()
+    {
         $paginator = $this->blogPostRepository->getAllInRootCategory(5);
 
         return view('blog.posts.index', compact('paginator'));
@@ -46,7 +48,8 @@ class PostController extends Controller {
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show (Request $request, $slug) {
+    public function show(Request $request, $slug)
+    {
         $item = $this->blogPostRepository->getShow($slug);
         $comments = $this->blogCommentRepository->getShow($item->id);
         $user = $request->user();
@@ -63,5 +66,4 @@ class PostController extends Controller {
 
         return view('blog.posts.show', compact('item', 'comments', 'userId'));
     }
-
 }

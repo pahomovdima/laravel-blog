@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package App\Repositories
  */
-class BlogCategoryRepository extends CoreRepository {
-
+class BlogCategoryRepository extends CoreRepository
+{
     /**
      * @return string
      */
-    protected function getModelClass () {
+    protected function getModelClass()
+    {
         return Model::class;
     }
 
@@ -26,7 +27,8 @@ class BlogCategoryRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getEdit ($id) {
+    public function getEdit($id)
+    {
         return $this->startConditions()->find($id);
     }
 
@@ -35,7 +37,8 @@ class BlogCategoryRepository extends CoreRepository {
      *
      * @return Collection
      */
-    public function getForComboBox () {
+    public function getForComboBox()
+    {
         $columns = [
             'id', 'title', 'parent_id'
         ];
@@ -59,7 +62,8 @@ class BlogCategoryRepository extends CoreRepository {
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAllWithPaginate ($perPage = null) {
+    public function getAllWithPaginate($perPage = null)
+    {
         $columns = [
             'id', 'title', 'parent_id', 'slug', 'description'
         ];
@@ -76,5 +80,4 @@ class BlogCategoryRepository extends CoreRepository {
 
         return $result;
     }
-
 }

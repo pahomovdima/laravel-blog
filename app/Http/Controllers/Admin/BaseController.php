@@ -12,8 +12,7 @@ use App\Http\Controllers\Controller;
  *
  * @package App\Http\Controllers\Admin
  */
-abstract class BaseController extends Controller {
-
-
+abstract class BaseController extends Controller
+{
 
 }

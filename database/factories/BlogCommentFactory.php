@@ -9,12 +9,12 @@ use \App\Models\BlogPost;
 $postsCollection = BlogPost
     ::select(['id'])
     ->where('category_id', 1)
-    ::where('is_published', 1)
+    ->where('is_published', 1)
     ->get();
 
 $posts = [];
 foreach ($postsCollection as $post) {
-    $posts['id'][] = $post->id;
+    $posts[] = $post->id;
 }
 
 $factory->define(Comment::class, function (Faker $faker) use ($posts) {
@@ -23,7 +23,7 @@ $factory->define(Comment::class, function (Faker $faker) use ($posts) {
     $comment = $faker->realText(rand(10, 100));
     $isPublished = rand(1, 5) > 1;
 
-    $postId = $posts['id'][rand(0, count($posts['id']) - 1)];
+    $postId = $posts[rand(0, count($posts) - 1)];
 
     $createdAt = $faker->dateTimeBetween('-2 months', '-1 days');
 

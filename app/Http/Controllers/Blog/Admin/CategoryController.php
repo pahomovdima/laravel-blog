@@ -12,14 +12,18 @@ use App\Repositories\BlogCategoryRepository;
  *
  * @package App\Http\Controllers\Blog\Admin
  */
-class CategoryController extends BaseController {
-
+class CategoryController extends BaseController
+{
     /**
      * @var BlogCategoryRepository
      */
     private $blogCategoryRepository;
 
-    public function __construct () {
+    /**
+     * CategoryController constructor.
+     */
+    public function __construct()
+    {
         parent::__construct();
 
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);
@@ -30,7 +34,8 @@ class CategoryController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index () {
+    public function index()
+    {
         $paginator = $this->blogCategoryRepository->getAllWithPaginate(15);
         $delimiter = '';
 
@@ -42,7 +47,8 @@ class CategoryController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create () {
+    public function create()
+    {
         $item = new BlogCategory();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
         $delimiter = '';
@@ -57,7 +63,8 @@ class CategoryController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function store (BlogCategoryCreateRequest $request) {
+    public function store(BlogCategoryCreateRequest $request)
+    {
         $data = $request->input();
         $item = (new BlogCategory())->create($data);
 
@@ -77,7 +84,8 @@ class CategoryController extends BaseController {
      * @param BlogCategoryRepository $categoryRepository
      * @return \Illuminate\Http\Response
      */
-    public function edit ($id) {
+    public function edit($id)
+    {
         $item = $this->blogCategoryRepository->getEdit($id);
 
         if (empty($item)) {
@@ -97,7 +105,8 @@ class CategoryController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update (BlogCategoryUpdateRequest $request, $id) {
+    public function update(BlogCategoryUpdateRequest $request, $id)
+    {
         $item = $this->blogCategoryRepository->getEdit($id);
 
         if (empty($item)) {
@@ -126,7 +135,8 @@ class CategoryController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy ($id) {
+    public function destroy($id)
+    {
         $result = BlogCategory::find($id)->forceDelete();
 
         if ($result) {
@@ -137,5 +147,4 @@ class CategoryController extends BaseController {
             return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
-
 }

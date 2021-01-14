@@ -4,16 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-class AdminController extends BaseController {
-
+class AdminController extends BaseController
+{
+    /**
+     * @var array
+     */
     private $mainMenu;
+
+    /**
+     * @var array
+     */
     private $blogMenu;
+
+    /**
+     * @var array
+     */
     private $userMenu;
 
     /**
      * AdminController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         $this->userMenu = include 'menu_array_user.php';
         $this->blogMenu = include 'menu_array_blog.php';
     }
@@ -22,7 +34,8 @@ class AdminController extends BaseController {
      * @param int $userRole
      * @return array
      */
-    protected function getMenu (int $userRole) {
+    protected function getMenu(int $userRole)
+    {
         foreach ([$this->blogMenu, $this->userMenu] as $menu) {
             if (in_array($userRole, $menu['roles_access'])) {
                 $this->mainMenu[] = $menu;
@@ -36,7 +49,8 @@ class AdminController extends BaseController {
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index (Request $request) {
+    public function index(Request $request)
+    {
         $menu = $this->getMenu($request->user()->role_id);
 
         if ($menu) {
@@ -45,5 +59,4 @@ class AdminController extends BaseController {
             return view('home');
         }
     }
-
 }

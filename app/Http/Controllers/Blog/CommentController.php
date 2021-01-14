@@ -19,7 +19,8 @@ class CommentController extends Controller {
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->blogPostRepository = app(blogPostRepository::class);
     }
 
@@ -46,7 +47,8 @@ class CommentController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function send (Request $request) {
+    public function send(Request $request)
+    {
         $data = $request->input();
         $user = $request->user();
 
@@ -74,5 +76,4 @@ class CommentController extends Controller {
                 ->withInput();
         }
     }
-
 }

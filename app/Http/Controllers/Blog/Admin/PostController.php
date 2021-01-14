@@ -8,8 +8,8 @@ use App\Repositories\BlogCategoryRepository;
 use App\Http\Requests\BlogPostUpdateRequest;
 use App\Http\Requests\BlogPostCreateRequest;
 
-class PostController extends BaseController {
-
+class PostController extends BaseController
+{
     /**
      * @var BlogPostRepository
      */
@@ -23,7 +23,8 @@ class PostController extends BaseController {
     /**
      * PostController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->blogPostRepository = app(blogPostRepository::class);
@@ -35,7 +36,8 @@ class PostController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index () {
+    public function index()
+    {
         $paginator = $this->blogPostRepository->getAllWithPaginate();
 
         return view('blog.admin.posts.index', compact('paginator'));
@@ -46,7 +48,8 @@ class PostController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create () {
+    public function create()
+    {
         $item = new BlogPost();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
 
@@ -59,7 +62,8 @@ class PostController extends BaseController {
      * @param \App\Http\Requests\BlogPostCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store (BlogPostCreateRequest $request) {
+    public function store(BlogPostCreateRequest $request)
+    {
         $data = $request->input();
         $item = (new BlogPost())->create($data);
 
@@ -78,7 +82,8 @@ class PostController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit ($id) {
+    public function edit($id)
+    {
         $item = $this->blogPostRepository->getEdit($id);
 
         if (!$item) {
@@ -98,7 +103,8 @@ class PostController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update (BlogPostUpdateRequest $request, $id) {
+    public function update(BlogPostUpdateRequest $request, $id)
+    {
         $item = $this->blogPostRepository->getEdit($id);
 
         if (empty($item)) {
@@ -127,7 +133,8 @@ class PostController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy ($id) {
+    public function destroy($id)
+    {
         $result = BlogPost::destroy($id);
 
         if ($result) {
@@ -138,5 +145,4 @@ class PostController extends BaseController {
             return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
-
 }

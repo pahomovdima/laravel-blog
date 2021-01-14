@@ -10,12 +10,13 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
  *
  * @package App\Repositories
  */
-class BlogPostRepository extends CoreRepository {
-
+class BlogPostRepository extends CoreRepository
+{
     /**
      * @return string
      */
-    protected function getModelClass () {
+    protected function getModelClass()
+    {
         return Model::class;
     }
 
@@ -25,7 +26,8 @@ class BlogPostRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getEdit ($id) {
+    public function getEdit($id)
+    {
         return $this->startConditions()->find($id);
     }
 
@@ -35,7 +37,8 @@ class BlogPostRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getShow ($slug) {
+    public function getShow($slug)
+    {
         $columns = [
             'id',
             'title',
@@ -60,7 +63,8 @@ class BlogPostRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getSlugById ($id) {
+    public function getSlugById($id)
+    {
         return $this->startConditions()->find($id)->slug;
     }
 
@@ -70,7 +74,8 @@ class BlogPostRepository extends CoreRepository {
      * @param int $nPage
      * @return mixed
      */
-    public function getAllWithPaginate ($nPage = 25) {
+    public function getAllWithPaginate($nPage = 25)
+    {
         $columns = [
             'id',
             'title',
@@ -101,7 +106,8 @@ class BlogPostRepository extends CoreRepository {
      * @param int $nPage
      * @return mixed
      */
-    public function getAllInRootCategory ($nPage = 10) {
+    public function getAllInRootCategory($nPage = 10)
+    {
         $columns = [
             'id',
             'title',
@@ -121,5 +127,4 @@ class BlogPostRepository extends CoreRepository {
 
         return $result;
     }
-
 }

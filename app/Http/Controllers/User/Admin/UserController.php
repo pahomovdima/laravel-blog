@@ -9,8 +9,8 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends BaseController {
-
+class UserController extends BaseController
+{
     /**
      * @var UserRepository
      */
@@ -34,7 +34,8 @@ class UserController extends BaseController {
     /**
      * UserController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->userRepository = app(UserRepository::class);
@@ -46,7 +47,8 @@ class UserController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index () {
+    public function index()
+    {
         $paginator = $this->userRepository->getAllWithPaginate();
 
         return view('user.admin.users.index', compact('paginator'));
@@ -57,7 +59,8 @@ class UserController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create () {
+    public function create()
+    {
         $item = new User();
         $roleList = $this->roleRepository->getForComboBox();
 
@@ -70,7 +73,8 @@ class UserController extends BaseController {
      * @param \App\Http\Requests\UserCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store (UserCreateRequest $request) {
+    public function store(UserCreateRequest $request)
+    {
         $data = $request->input();
 
         $item = User::create([
@@ -94,7 +98,8 @@ class UserController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit ($id) {
+    public function edit($id)
+    {
         $item = $this->userRepository->getEdit($id);
 
         if (!$item) {
@@ -112,7 +117,8 @@ class UserController extends BaseController {
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update (UserUpdateRequest $request, $id) {
+    public function update(UserUpdateRequest $request, $id)
+    {
         $item = $this->userRepository->getEdit($id);
 
         if (empty($item)) {
@@ -148,7 +154,8 @@ class UserController extends BaseController {
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy ($id) {
+    public function destroy($id)
+    {
         $result = User::destroy($id);
 
         if ($result) {
@@ -159,5 +166,4 @@ class UserController extends BaseController {
             return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
-
 }

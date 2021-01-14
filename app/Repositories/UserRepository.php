@@ -10,12 +10,13 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
  *
  * @package App\Repositories
  */
-class UserRepository extends CoreRepository {
-
+class UserRepository extends CoreRepository
+{
     /**
      * @return string
      */
-    protected function getModelClass () {
+    protected function getModelClass()
+    {
         return Model::class;
     }
 
@@ -25,7 +26,8 @@ class UserRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getEdit ($id) {
+    public function getEdit($id)
+    {
         return $this->startConditions()->find($id);
     }
 
@@ -36,7 +38,8 @@ class UserRepository extends CoreRepository {
      *
      * @return LengthAwarePaginator
      */
-    public function getAllWithPaginate () {
+    public function getAllWithPaginate()
+    {
         $columns = [
             'id',
             'name',
@@ -52,5 +55,4 @@ class UserRepository extends CoreRepository {
 
         return $result;
     }
-
 }

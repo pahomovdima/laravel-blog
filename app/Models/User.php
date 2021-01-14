@@ -39,21 +39,23 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role () {
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
     /**
      * @return bool
      */
-    public function isAdmin () {
+    public function isAdmin() {
         return $this->role->id == 1;
     }
 
     /**
      * @return bool
      */
-    public function isArticleEditor () {
+    public function isArticleEditor()
+    {
         return $this->role->id == 2;
     }
 }

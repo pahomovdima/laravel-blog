@@ -7,8 +7,8 @@ use App\Http\Requests\RoleUpdateRequest;
 use App\Models\Role;
 use App\Repositories\RoleRepository;
 
-class RoleController extends BaseController {
-
+class RoleController extends BaseController
+{
     /**
      * @var RoleRepository
      */
@@ -17,7 +17,8 @@ class RoleController extends BaseController {
     /**
      * RoleController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->roleRepository = app(RoleRepository::class);
@@ -28,7 +29,8 @@ class RoleController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         $paginator = $this->roleRepository->getAllWithPaginate();
 
         return view('user.admin.roles.index', compact('paginator'));
@@ -39,7 +41,8 @@ class RoleController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         $item = new Role();
         $roleList = $this->roleRepository->getForComboBox();
 
@@ -52,7 +55,8 @@ class RoleController extends BaseController {
      * @param  \App\Http\Requests\RoleCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleCreateRequest $request) {
+    public function store(RoleCreateRequest $request)
+    {
         $data = $request->input();
         $item = (new Role())->create($data);
 
@@ -71,7 +75,8 @@ class RoleController extends BaseController {
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         $item = $this->roleRepository->getEdit($id);
 
         if (!$item) {
@@ -90,7 +95,8 @@ class RoleController extends BaseController {
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleUpdateRequest $request, $id) {
+    public function update(RoleUpdateRequest $request, $id)
+    {
         $item = $this->roleRepository->getEdit($id);
 
         if (empty($item)) {
@@ -119,7 +125,8 @@ class RoleController extends BaseController {
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy ($id) {
+    public function destroy($id)
+    {
         $result = Role::destroy($id);
 
         if ($result) {
@@ -130,5 +137,4 @@ class RoleController extends BaseController {
             return back()->withErrors([ 'msg' => 'Ошибка удаления' ]);
         }
     }
-
 }

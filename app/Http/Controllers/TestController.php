@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use \App\Models\BlogPost;
 
-class TestController extends Controller {
-
-    public function index () {
+class TestController extends Controller
+{
+    /**
+     * test
+     */
+    public function index()
+    {
         $postsCollection = BlogPost
             ::select(['id'])
             ->where('category_id', 1)
@@ -14,14 +18,12 @@ class TestController extends Controller {
             ->get();
 
         $posts = [];
-
         foreach ($postsCollection as $post) {
-            $posts['id'][] = $post->id;
+            $posts[] = $post->id;
         }
 
-        $postId = $posts['id'][rand(0, count($posts['id']) - 1)];
+        $postId = $posts[rand(0, count($posts) - 1)];
 
         echo $postId;
     }
-
 }

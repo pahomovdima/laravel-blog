@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package App\Repositories
  */
-class RoleRepository extends CoreRepository {
-
+class RoleRepository extends CoreRepository
+{
     /**
      * @return string
      */
-    protected function getModelClass () {
+    protected function getModelClass()
+    {
         return Model::class;
     }
 
@@ -26,7 +27,8 @@ class RoleRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getEdit ($id) {
+    public function getEdit($id)
+    {
         return $this->startConditions()->find($id);
     }
 
@@ -37,7 +39,8 @@ class RoleRepository extends CoreRepository {
      *
      * @return LengthAwarePaginator
      */
-    public function getAllWithPaginate () {
+    public function getAllWithPaginate()
+    {
         $columns = [
             'id',
             'name',
@@ -57,7 +60,8 @@ class RoleRepository extends CoreRepository {
      *
      * @return Collection
      */
-    public function getForComboBox () {
+    public function getForComboBox()
+    {
         $columns = implode(', ', [
             'id', 'name', 'description'
         ]);
@@ -70,5 +74,4 @@ class RoleRepository extends CoreRepository {
 
         return $result;
     }
-
 }

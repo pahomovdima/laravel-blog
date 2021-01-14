@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlogCategory extends Model {
-
+class BlogCategory extends Model
+{
     use SoftDeletes;
 
     /**
@@ -28,7 +28,8 @@ class BlogCategory extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parentCategory () {
+    public function parentCategory()
+    {
         return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 
@@ -37,7 +38,8 @@ class BlogCategory extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function children () {
+    public function children()
+    {
         return $this->hasMany(self::class, 'parent_id');
     }
 
@@ -46,7 +48,8 @@ class BlogCategory extends Model {
      *
      * @return mixed|string
      */
-    public function getParentTitleAttribute () {
+    public function getParentTitleAttribute()
+    {
         $title = $this->parentCategory->title ?? ($this->isRoot() ? 'Корень' : '???');
 
         return $title;
@@ -57,8 +60,8 @@ class BlogCategory extends Model {
      *
      * @return bool
      */
-    public function isRoot () {
+    public function isRoot()
+    {
         return $this->id === BlogCategory::ROOT;
     }
-
 }

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlogPost extends Model {
-
+class BlogPost extends Model
+{
     use SoftDeletes;
 
     const UNKNOWN_USER = 1;
@@ -28,7 +28,8 @@ class BlogPost extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category () {
+    public function category()
+    {
         return $this->belongsTo(BlogCategory::class);
     }
 
@@ -37,8 +38,8 @@ class BlogPost extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user () {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-
 }

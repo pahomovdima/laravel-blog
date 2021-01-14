@@ -9,12 +9,13 @@ use App\Models\Comment as Model;
  *
  * @package App\Repositories
  */
-class BlogCommentRepository extends CoreRepository {
-
+class BlogCommentRepository extends CoreRepository
+{
     /**
      * @return string
      */
-    protected function getModelClass () {
+    protected function getModelClass()
+    {
         return Model::class;
     }
 
@@ -24,7 +25,8 @@ class BlogCommentRepository extends CoreRepository {
      * @param int $id
      * @return Model
      */
-    public function getEdit ($id) {
+    public function getEdit($id)
+    {
         return $this->startConditions()->find($id);
     }
 
@@ -34,7 +36,8 @@ class BlogCommentRepository extends CoreRepository {
      * @param int $nPage
      * @return mixed
      */
-    public function getAllWithPaginate ($nPage = 25) {
+    public function getAllWithPaginate($nPage = 25)
+    {
         $columns = [
             'id',
             'post_id',
@@ -59,7 +62,8 @@ class BlogCommentRepository extends CoreRepository {
      * @param int $nPage
      * @return mixed
      */
-    public function getShow ($postId) {
+    public function getShow($postId)
+    {
         $columns = [
             'id',
             'post_id',
@@ -78,5 +82,4 @@ class BlogCommentRepository extends CoreRepository {
 
         return $result;
     }
-
 }

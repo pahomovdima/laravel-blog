@@ -12,13 +12,13 @@ use App\Http\Controllers\Blog\BaseController as GuestBaseController;
  *
  * @package App\Http\Controllers\Blog\Admin
  */
-class BaseController extends GuestBaseController {
-
+class BaseController extends GuestBaseController
+{
     /**
      * BaseController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         // Инициализация общих моментов для админки.
     }
-
 }

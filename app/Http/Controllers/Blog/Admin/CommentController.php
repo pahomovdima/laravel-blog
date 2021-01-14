@@ -7,7 +7,8 @@ use App\Repositories\BlogCommentRepository;
 use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
-class CommentController extends BaseController {
+class CommentController extends BaseController
+{
 
     /**
      * @var BlogPostRepository
@@ -22,7 +23,8 @@ class CommentController extends BaseController {
     /**
      * PostController constructor.
      */
-    public function __construct () {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->blogPostRepository = app(blogPostRepository::class);
@@ -34,7 +36,8 @@ class CommentController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         $paginator = $this->blogCommentRepository->getAllWithPaginate();
 
         return view('blog.admin.comments.index', compact('paginator'));
@@ -46,7 +49,8 @@ class CommentController extends BaseController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         $item = $this->blogCommentRepository->getEdit($id);
 
         if (!$item) {
@@ -63,7 +67,8 @@ class CommentController extends BaseController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $item = $this->blogCommentRepository->getEdit($id);
 
         if (empty($item)) {
@@ -92,7 +97,8 @@ class CommentController extends BaseController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $result = Comment::destroy($id);
 
         if ($result) {

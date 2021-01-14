@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckArticleEditor {
-
+class CheckArticleEditor
+{
     /**
      * Handle an incoming request.
      *
@@ -14,7 +14,8 @@ class CheckArticleEditor {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
         if (Auth::check() && (Auth::user()->isArticleEditor() || Auth::user()->isAdmin())) {
             return $next($request);
         }

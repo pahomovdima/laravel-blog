@@ -12,7 +12,8 @@ class BlogCategoryObserver
      * @param  \App\Models\BlogCategory  $blogCategory
      * @return void
      */
-    public function creating(BlogCategory $blogCategory) {
+    public function creating(BlogCategory $blogCategory)
+    {
         $this->setSlug($blogCategory);
     }
 
@@ -22,7 +23,8 @@ class BlogCategoryObserver
      * @param  \App\Models\BlogCategory  $blogCategory
      * @return void
      */
-    public function updating(BlogCategory $blogCategory) {
+    public function updating(BlogCategory $blogCategory)
+    {
         $this->setSlug($blogCategory);
     }
 
@@ -64,7 +66,8 @@ class BlogCategoryObserver
      *
      * @param $blogCategory
      */
-    protected function setSlug ($blogCategory) {
+    protected function setSlug($blogCategory)
+    {
         if (empty($blogCategory->slug)) {
             $blogCategory->slug = \Str::slug($blogCategory->title);
         }
