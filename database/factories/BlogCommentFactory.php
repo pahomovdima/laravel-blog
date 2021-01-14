@@ -9,11 +9,10 @@ use \App\Models\BlogPost;
 $postsCollection = BlogPost
     ::select(['id'])
     ->where('category_id', 1)
-    ->where('is_published', 1)
+    ::where('is_published', 1)
     ->get();
 
 $posts = [];
-
 foreach ($postsCollection as $post) {
     $posts['id'][] = $post->id;
 }
