@@ -65,8 +65,6 @@ class CommentController extends Controller {
         $data['is_published'] = 0;
         $item = (new Comment())->create($data);
 
-        return $item;
-
         if ($item) {
             $postSlug = $this->blogPostRepository->getSlugById($data['post_id']);
             return redirect()->route('blog.posts.show', $postSlug)
